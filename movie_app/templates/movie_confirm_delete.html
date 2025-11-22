@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer {{ movie.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .confirm-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .warning-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        .movie-info {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .movie-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        .warning-text {
+            color: #e67e22;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirm-container">
+        <div class="warning-icon">⚠️</div>
+        <h1>Confirmer la suppression</h1>
+        
+        <p class="warning-text">Êtes-vous sûr de vouloir supprimer ce film ?</p>
+        
+        <div class="movie-info">
+            <h3>{{ movie.title }}</h3>
+            <p><strong>Année:</strong> {{ movie.release_year }}</p>
+            <p>{{ movie.description|truncatewords:20 }}</p>
+        </div>
+        
+        <p style="color: #7f8c8d; font-size: 14px;">
+            Cette action est irréversible et supprimera définitivement ce film de la base de données.
+        </p>
+        
+        <form method="post" style="margin-top: 30px;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">🗑️ Oui, supprimer</button>
+            <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-secondary">❌ Non, annuler</a>
+        </form>
+    </div>
+</body>
+</html>
